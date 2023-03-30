@@ -164,4 +164,23 @@ public class MemberControllerTests {
                         <input type="submit" value="로그인"
                         """.stripIndent().trim())));
     }
+
+    @Test
+    // @Rollback(value = false) // DB에 흔적이 남는다.
+    @DisplayName("로그인 처리")
+    void t005() throws Exception {
+        // WHEN
+        ResultActions resultActions = mvc
+                .perform(post("/member/login")
+                        .with(csrf()) // CSRF 키 생성
+                        .param("username", "user1")
+                        .param("password", "1234")
+                )
+                .andDo(print());
+
+        // THEN
+        resultActions
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrlPattern("/**"));
+    }
 }
