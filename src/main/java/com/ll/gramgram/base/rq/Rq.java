@@ -49,13 +49,19 @@ public class Rq {
 
     // 로그인 된 회원의 객체
     public Member getMember() {
-        if ( isLogout() ) return null;
+        if (isLogout()) return null;
 
         // 데이터가 없는지 체크
-        if ( member == null ) {
+        if (member == null) {
             member = memberService.findByUsername(user.getUsername()).orElseThrow();
         }
 
         return member;
+    }
+
+    public String historyBack(String msg) {
+        // model.addAttribute 와 같은 의미
+        req.setAttribute("alertMsg", msg);
+        return "common/js";
     }
 }
