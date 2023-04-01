@@ -52,7 +52,7 @@
     $(window).bind("pageshow", function (event) {
         const localStorageKeyAboutHistoryBackErrorMsg = "historyBackErrorMsg___" + location.href;
 
-        if ( localStorage.getItem(localStorageKeyAboutHistoryBackErrorMsg) ) {
+        if (localStorage.getItem(localStorageKeyAboutHistoryBackErrorMsg)) {
             toastWarning(localStorage.getItem(localStorageKeyAboutHistoryBackErrorMsg));
             localStorage.removeItem(localStorageKeyAboutHistoryBackErrorMsg);
         }
