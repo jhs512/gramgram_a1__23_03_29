@@ -63,6 +63,7 @@ public class Rq {
         return member;
     }
 
+    // 뒤로가기 + 메세지
     public String historyBack(String msg) {
         String referer = req.getHeader("referer");
         String key = "historyBackErrorMsg___" + referer;
@@ -71,14 +72,17 @@ public class Rq {
         return "common/js";
     }
 
+    // 뒤로가기 + 메세지
     public String historyBack(RsData rsData) {
         return historyBack(rsData.getMsg());
     }
 
+    // 302 + 메세지
     public String redirectWithMsg(String url, RsData rsData) {
         return redirectWithMsg(url, rsData.getMsg());
     }
 
+    // 302 + 메세지
     public String redirectWithMsg(String url, String msg) {
         return "redirect:" + urlWithMsg(url, msg);
     }
@@ -88,6 +92,7 @@ public class Rq {
         return Ut.url.modifyQueryParam(url, "msg", msgWithTtl(msg));
     }
 
+    // 메세지에 ttl 적용
     private String msgWithTtl(String msg) {
         return Ut.url.encode(msg) + ";ttl=" + new Date().getTime();
     }
