@@ -17,23 +17,23 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/member")
+@RequestMapping("/member") // 액션 URL의 공통 접두어
 @RequiredArgsConstructor
 public class MemberController {
     private final MemberService memberService;
     private final Rq rq;
 
-    @PreAuthorize("isAnonymous()")
-    @GetMapping("/join")
+    @PreAuthorize("isAnonymous()") // 오직 로그인 안한 사람만 접근 가능하다.
+    @GetMapping("/join") // 회원가입 폼
     public String showJoin() {
         return "usr/member/join";
     }
 
-    @AllArgsConstructor
-    @Getter
+    @AllArgsConstructor // @Setter 도 가능, 데이터를 저장할 방편을 마련하기 위해서
+    @Getter // joinForm.getUsername() 이런 코드 가능하게
     public static class JoinForm {
-        @NotBlank
-        @Size(min = 4, max = 30)
+        @NotBlank // 비어있지 않아야 하고, 공백으로만 이루어 지지도 않아야 한다.
+        @Size(min = 4, max = 30) // 4자 이상, 30자 이하
         private final String username;
         @NotBlank
         @Size(min = 4, max = 30)
@@ -42,7 +42,7 @@ public class MemberController {
 
     @PreAuthorize("isAnonymous()")
     @PostMapping("/join")
-    public String join(@Valid JoinForm joinForm) {
+    public String join(@Valid JoinForm joinForm) { // @Valid 가 없으면 @NotBlank 등이 작동하지 않음, 만약에 유효성 문제가 있다면 즉시 정지
         RsData<Member> joinRs = memberService.join(joinForm.getUsername(), joinForm.getPassword());
 
         if (joinRs.isFail()) {
@@ -55,13 +55,13 @@ public class MemberController {
     }
 
     @PreAuthorize("isAnonymous()")
-    @GetMapping("/login")
+    @GetMapping("/login") // 로그인 폼, 로그인 폼 처리는 스프링 시큐리티가 구현, 폼 처리시에 CustomUserDetailsService 가 사용됨
     public String showLogin() {
         return "usr/member/login";
     }
 
-    @PreAuthorize("isAuthenticated()")
-    @GetMapping("/me")
+    @PreAuthorize("isAuthenticated()") // 로그인 해야만 접속가능
+    @GetMapping("/me") // 로그인 한 나의 정보 보여주는 페이지
     public String showMe() {
         return "usr/member/me";
     }
