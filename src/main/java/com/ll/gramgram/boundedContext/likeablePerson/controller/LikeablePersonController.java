@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
-import java.util.Objects;
 
 @Controller
 @RequestMapping("/likeablePerson")
@@ -69,14 +68,7 @@ public class LikeablePersonController {
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/delete/{id}")
     public String delete(@PathVariable Long id) {
-        LikeablePerson likeablePerson = likeablePersonService.findById(id).orElse(null);
-
-        if (likeablePerson == null) return rq.historyBack("이미 취소된 호감입니다.");
-
-        if (!Objects.equals(rq.getMember().getInstaMember().getId(), likeablePerson.getFromInstaMember().getId()))
-            return rq.historyBack("권한이 없습니다.");
-
-        RsData deleteRs = likeablePersonService.delete(likeablePerson);
+        RsData deleteRs = likeablePersonService.delete(rq.getMember(), id);
 
         if (deleteRs.isFail()) return rq.historyBack(deleteRs);
 
