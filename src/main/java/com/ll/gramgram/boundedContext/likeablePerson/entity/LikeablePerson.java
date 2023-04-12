@@ -6,6 +6,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
@@ -25,6 +26,7 @@ public class LikeablePerson extends BaseEntity {
     private InstaMember toInstaMember; // 호감을 받은 사람(인스타 멤버)
     private String toInstaMemberUsername; // 혹시 몰라서 기록
 
+    @Setter
     private int attractiveTypeCode; // 매력포인트(1=외모, 2=성격, 3=능력)
 
     public String getAttractiveTypeDisplayName() {
