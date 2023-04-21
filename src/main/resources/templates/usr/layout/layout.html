@@ -33,7 +33,7 @@
 <script src="https://cdn.tailwindcss.com"></script>
 
 <!-- min-h-screen : min-height:100vh; -->
-<main class="min-h-screen flex flex-col">
+<div class="min-h-screen flex flex-col">
     <header class="sticky top-0">
         <div class="navbar max-w-2xl mx-auto bg-base-100">
             <div class="navbar-start">
@@ -87,38 +87,38 @@
     </header>
 
     <main layout:fragment="main"></main>
+</div>
 
-    <script th:inline="javascript">
-        // 타임리프 문법(파라미터, ? 뒤에 입력된 매개변수들)
-        const params = /*[[ ${param} ]]*/ null;
+<script th:inline="javascript">
+    // 타임리프 문법(파라미터, ? 뒤에 입력된 매개변수들)
+    const params = /*[[ ${param} ]]*/ null;
 
-        if (params.msg) {
-            toastNotice(params.msg[0]);
-        }
+    if (params.msg) {
+        toastNotice(params.msg[0]);
+    }
 
-        if (params.errorMsg) {
-            toastWarning(params.errorMsg[0]);
-        }
+    if (params.errorMsg) {
+        toastWarning(params.errorMsg[0]);
+    }
 
-        // history.back 에 의해서 돌아온 경우에 실행됨
-        // 평소에도 실행됨
-        $(window).bind("pageshow", function (event) {
-            const localStorageKeyAboutHistoryBackErrorMsg = "historyBackErrorMsg___" + location.href;
+    // history.back 에 의해서 돌아온 경우에 실행됨
+    // 평소에도 실행됨
+    $(window).bind("pageshow", function (event) {
+        const localStorageKeyAboutHistoryBackErrorMsg = "historyBackErrorMsg___" + location.href;
+
+        if (localStorage.getItem(localStorageKeyAboutHistoryBackErrorMsg)) {
+            toastWarning(localStorage.getItem(localStorageKeyAboutHistoryBackErrorMsg));
+            localStorage.removeItem(localStorageKeyAboutHistoryBackErrorMsg);
+        } else if (!document.referrer) {
+            const localStorageKeyAboutHistoryBackErrorMsg = "historyBackErrorMsg___null";
 
             if (localStorage.getItem(localStorageKeyAboutHistoryBackErrorMsg)) {
                 toastWarning(localStorage.getItem(localStorageKeyAboutHistoryBackErrorMsg));
                 localStorage.removeItem(localStorageKeyAboutHistoryBackErrorMsg);
-            } else if (!document.referrer) {
-                const localStorageKeyAboutHistoryBackErrorMsg = "historyBackErrorMsg___null";
-
-                if (localStorage.getItem(localStorageKeyAboutHistoryBackErrorMsg)) {
-                    toastWarning(localStorage.getItem(localStorageKeyAboutHistoryBackErrorMsg));
-                    localStorage.removeItem(localStorageKeyAboutHistoryBackErrorMsg);
-                }
             }
-        });
-    </script>
-</main>
+        }
+    });
+</script>
 
 </body>
 </html>
