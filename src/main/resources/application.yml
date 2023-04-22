@@ -1,3 +1,12 @@
+server:
+  ssl:
+    enabled: true
+    key-store-type: PKCS12
+    key-store: keystore.p12
+    key-alias: tomcat
+    key-store-password: qweasd
+  port: 8443
+
 spring:
   mvc:
     hiddenmethod:
@@ -59,3 +68,11 @@ custom:
   likeablePerson:
     from:
       max: 10
+  instagram:
+    client-id: 160539426478687
+    client-secret: 9791d1d465311ff2a68610b6d69d2302
+    scope: user_profile,user_media
+    authorization-uri: https://api.instagram.com/oauth/authorize
+    api-uri: https://api.instagram.com
+    graph-uri: https://graph.instagram.com
+    redirect_uri: "https://localhost:8443/instagram/callback"

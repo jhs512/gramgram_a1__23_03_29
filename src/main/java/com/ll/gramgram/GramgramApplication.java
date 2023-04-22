@@ -2,9 +2,13 @@ package com.ll.gramgram;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 @SpringBootApplication
+@EnableFeignClients
+@ConfigurationPropertiesScan
 @EnableJpaAuditing // @EntityListeners(AuditingEntityListener.class) 가 작동하도록 허용
 public class GramgramApplication {
 
