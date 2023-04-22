@@ -86,7 +86,7 @@ public class LikeablePersonController {
 
         RsData canModifyRsData = likeablePersonService.canModifyLike(rq.getMember(), likeablePerson);
 
-        if (canModifyRsData.isFail()) return rq.historyBack(canModifyRsData);
+        if ( canModifyRsData.isFail() ) return rq.historyBack(canModifyRsData);
 
         model.addAttribute("likeablePerson", likeablePerson);
 
