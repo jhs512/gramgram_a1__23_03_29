@@ -51,6 +51,7 @@ public class Member extends BaseEntity {
     }
 
     public String getNickname() {
-        return "%04d".formatted(getId());
+        // 최소 6자 이상
+        return "%1$4s".formatted(Long.toString(getId(), 36)).replace(' ', '0');
     }
 }
