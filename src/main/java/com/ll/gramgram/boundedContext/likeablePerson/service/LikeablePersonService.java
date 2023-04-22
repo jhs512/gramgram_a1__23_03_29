@@ -147,7 +147,7 @@ public class LikeablePersonService {
 
         String oldAttractiveTypeDisplayName = fromLikeablePerson.getAttractiveTypeDisplayName();
 
-        fromLikeablePerson.setAttractiveTypeCode(attractiveTypeCode);
+        fromLikeablePerson.updateAttractionTypeCode(attractiveTypeCode);
 
         String newAttractiveTypeDisplayName = fromLikeablePerson.getAttractiveTypeDisplayName();
 
@@ -167,7 +167,7 @@ public class LikeablePersonService {
             return canModifyRsData;
         }
 
-        likeablePerson.setAttractiveTypeCode(attractiveTypeCode);
+        likeablePerson.updateAttractionTypeCode(attractiveTypeCode);
 
         return RsData.of("S-1", "호감사유를 수정하였습니다.");
     }
