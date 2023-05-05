@@ -8,31 +8,30 @@
 
 <main layout:fragment="main" class="flex-grow flex items-center justify-center">
 
-    <script th:inline="javascript">
+    <div class="hidden" id="msg-loginFormNeedInputUsername" th:text="#{c.loginFormNeedInputUsername}"></div>
+    <div class="hidden" id="msg-loginFormNeedInputUsernameMoreThan"
+         th:text="${@rq.getCText('c.loginFormNeedInputUsernameMoreThan', loginFormInputUsernameValueMinLength)}"></div>
+    <div class="hidden" id="msg-loginFormNeedInputPassword" th:text="#{c.loginFormNeedInputPassword}"></div>
+    <div class="hidden" id="msg-loginFormNeedInputPasswordMoreThan"
+         th:text="#{c.loginFormNeedInputPasswordMoreThan(${loginFormInputPasswordValueMinLength})}"></div>
+
+    <script>
         const loginFormInputUsernameValueMinLength = 4;
         const loginFormInputPasswordValueMinLength = 4;
 
-        // 타임리프 문법(파라미터, ? 뒤에 입력된 매개변수들)
-        const msgNeedInputUsername = /*[[#{c.loginFormNeedInputUsername}]]*/ null;
-        const msgLoginFormNeedInputUsernameMoreThan = /*[[#{c.loginFormNeedInputUsernameMoreThan(4)}]]*/ null;
-        const msgNeedInputPassword = /*[[#{c.loginFormNeedInputPassword}]]*/ null;
-        const msgLoginFormNeedInputPasswordMoreThan = /*[[#{c.loginFormNeedInputPasswordMoreThan(4)}]]*/ null;
-    </script>
-
-    <script>
         function LoginForm__submit(form) {
             // username 이(가) 올바른지 체크
 
             form.username.value = form.username.value.trim(); // 입력란의 입력값에 있을지 모르는 좌우공백제거
 
             if (form.username.value.length === 0) {
-                toastWarning(msgNeedInputUsername);
+                toastWarning($("#msg-loginFormNeedInputUsername").text());
                 form.username.focus();
                 return;
             }
 
             if (form.username.value.length < loginFormInputUsernameValueMinLength) {
-                toastWarning(msgLoginFormNeedInputUsernameMoreThan);
+                toastWarning($("#msg-loginFormNeedInputUsernameMoreThan").text());
                 form.username.focus();
                 return;
             }
@@ -42,13 +41,14 @@
             form.password.value = form.password.value.trim(); // 입력란의 입력값에 있을지 모르는 좌우공백제거
 
             if (form.password.value.length === 0) {
+                toastWarning($("#msg-loginFormNeedInputPassword").text());
                 form.password.focus();
                 toastWarning(msgNeedInputPassword);
                 return;
             }
 
             if (form.password.value.length < loginFormInputPasswordValueMinLength) {
-                toastWarning(msgLoginFormNeedInputPasswordMoreThan);
+                toastWarning($("#msg-loginFormNeedInputPasswordMoreThan").text());
                 form.password.focus();
                 return;
             }
