@@ -28,3 +28,4 @@ public class AppConfig {
         return LocalDateTime.now().plusSeconds(likeablePersonModifyCoolTime);
     }
 }
+
