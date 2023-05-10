@@ -138,7 +138,8 @@ public class LikeablePersonController {
             }
 
             if (attractiveTypeCode != 0) {
-                // likeablePeopleStream = likeablePeopleStream.filter();
+                likeablePeopleStream = likeablePeopleStream
+                        .filter(likeablePerson -> likeablePerson.getAttractiveTypeCode() == attractiveTypeCode);
             }
 
             switch (sortCode) {
