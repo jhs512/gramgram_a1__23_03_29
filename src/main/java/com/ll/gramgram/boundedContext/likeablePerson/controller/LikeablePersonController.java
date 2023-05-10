@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -143,17 +144,20 @@ public class LikeablePersonController {
             }
 
             switch (sortCode) {
-                case 1:
-                    // likeablePeopleStream = likeablePeopleStream.sorted(??);
-                    break;
                 case 2:
-                    // likeablePeopleStream = likeablePeopleStream.sorted(??);
+                    likeablePeopleStream = likeablePeopleStream.sorted(
+                            Comparator.comparing(LikeablePerson::getId)
+                    );
                     break;
                 case 3:
-                    // likeablePeopleStream = likeablePeopleStream.sorted(??);
+                    likeablePeopleStream = likeablePeopleStream.sorted(
+                            Comparator.comparing(lp -> ((LikeablePerson) lp).getFromInstaMember().getLikes()).reversed()
+                    );
                     break;
                 case 4:
-                    // likeablePeopleStream = likeablePeopleStream.sorted(??);
+                    likeablePeopleStream = likeablePeopleStream.sorted(
+                            Comparator.comparing(lp -> lp.getFromInstaMember().getLikes())
+                    );
                     break;
                 case 5:
                     // likeablePeopleStream = likeablePeopleStream.sorted(??);
