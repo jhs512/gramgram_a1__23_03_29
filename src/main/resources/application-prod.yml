@@ -11,6 +11,9 @@ management:
     readinessstate:
       enabled: true
 spring:
+  data:
+    redis:
+      host: 172.17.0.1
   lifecycle:
     timeout-per-shutdown-phase: 1m
   autoconfigure:
